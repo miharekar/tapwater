@@ -4,13 +4,12 @@
     for (var i = 0, len = data.length; i < len; i++) {
       obj = data[i]
       if (obj.is_working == 1) {
+        content = '<div class="water"><h3>' + obj.name + '</h3><img src="' + obj.image_uri + '"><p>' + obj.description + '</p></div>'
         markers.push({
           lat: obj.latitude,
           lng: obj.longitude,
           title: obj.name,
-          infoWindow: {
-            content: obj.description
-          }
+          infoWindow: {content: content}
         })
       }
     }
@@ -23,7 +22,6 @@
     GMaps.geolocate({
       success: function(position) {
         map.setCenter(position.coords.latitude, position.coords.longitude)
-        console.log(position)
         map.drawCircle({
           lat: position.coords.latitude,
           lng: position.coords.longitude,

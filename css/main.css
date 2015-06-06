@@ -14,3 +14,7 @@ html, body, #map {
 .gm-style {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+.water {
+  max-width: 400px;
+}
