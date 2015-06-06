@@ -10,3 +10,7 @@ body {
 html, body, #map {
   height: 100%;
 }
+
+.gm-style {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
