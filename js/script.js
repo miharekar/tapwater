@@ -14,25 +14,30 @@
       }
     }
     map.addMarkers(markers)
-    map.fitZoom()
     geolocate()
   }
 
   function geolocate() {
-    GMaps.geolocate({
-      success: function(position) {
-        map.setCenter(position.coords.latitude, position.coords.longitude)
-        map.drawCircle({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          fillColor: '#0000FF',
-          radius: position.coords.accuracy
-        })
-      },
-      error: function(error) {
-        alert('Geolocation failed: ' + error.message)
-      },
-      not_supported: function() {}
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(centerMap)
+        navigator.geolocation.watchPosition(drawCircle);
+    }
+  }
+
+  function centerMap(position) {
+    map.setCenter(position.coords.latitude, position.coords.longitude)
+  }
+
+  function drawCircle(position) {
+    if (typeof circle !== 'undefined') {
+      circle.setMap(null)
+    }
+    circle = map.drawCircle({
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      fillColor: '#0000FF',
+      radius: position.coords.accuracy,
+      strokeWeight: 0
     })
   }
 
@@ -40,7 +45,8 @@
     map = new GMaps({
       div: '#map',
       lat: 46.05285500,
-      lng: 14.49392500
+      lng: 14.49392500,
+      zoom: 16
     })
 
     var fountains = $.get('http://apps.enki.si/vo-ka/tap-water/get_fountains.php')
