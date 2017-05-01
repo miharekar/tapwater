@@ -49,7 +49,7 @@
       zoom: 16
     })
 
-    var fountains = $.get('http://apps.enki.si/vo-ka/tap-water/get_fountains.php')
+    var fountains = $.get('https://join.run/tapwater')
     fountains.done(showMarkers)
   })
 })(jQuery)
